@@ -1,0 +1,45 @@
+{
+  "name": "myFeeds",
+  "version": "0.0.1",
+  "description": "信息流组件库",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.js",
+    "build": "webpack --config config/webpack.prod.config.js",
+    "pub": "npm run build && jnpm publish"
+  },
+  "files": [
+    "README.md",
+    "lib"
+  ],
+  "author": "高坤 <gaokun3@jd.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "autoprefixer": "^9.8.6",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.1.0",
+    "classnames": "^2.2.6",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.2.0",
+    "eslint": "^7.5.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rmc-notification": "^1.0.0",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.1.1"
+  }
+}

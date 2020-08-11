@@ -1,0 +1,32 @@
+@import '@src/styles/variables.scss';
+@import '@src/styles/mixins.scss';
+.product-item{
+    width: 350px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    &:nth-child(2n+1){
+        margin-right: 10px;
+    }
+    img{
+        width:350px;
+        height:350px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+}
+.product-info{
+    padding:0 20px 20px;
+}
+.product-name{
+    margin: 12px 0;
+    line-height: 30px;
+    color: #2E2D2D;
+    font-size: 26px;
+    &.one{
+        @include text-overflow(310px);
+    }
+    &.two{
+        @include text-overflow(310px,2);
+    }
+}
