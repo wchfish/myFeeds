@@ -12,7 +12,7 @@
     "README.md",
     "lib"
   ],
-  "author": "高坤 <gaokun3@jd.com>",
+  "author": "王晨",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -21,6 +21,7 @@
     "@babel/preset-react": "^7.10.4",
     "autoprefixer": "^9.8.6",
     "babel": "^6.23.0",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "classnames": "^2.2.6",
     "cross-env": "^7.0.2",

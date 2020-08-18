@@ -9,7 +9,6 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import './index.scss'
-import { logDOM } from '@testing-library/react'
 
 const Feed = props => {
 	let {
@@ -54,7 +53,7 @@ const Feed = props => {
 	const [feedShow, setFeedShow] = useState(false)
 
 	// wrapperDataSource
-	const [ wrapperDataSource, setWrapperDataSource ] = useState(_wrapDataSource)
+	const [wrapperDataSource, setWrapperDataSource] = useState(_wrapDataSource)
 
 	// 触发计算元素高度的effect
 	const [feedRender, setFeedRender] = useState(false)
@@ -79,6 +78,10 @@ const Feed = props => {
 			}
 		})
 		return wrapperDataSource
+	}
+
+	if (!useRealHeight) {
+		_layout()
 	}
 
 	/**
@@ -186,19 +189,21 @@ const Feed = props => {
 					ref={invisibleRef}
 				>
 					{
-						_wrapDataSource.map((item, index) => {
-							return (
-								<div
-									key={index}
-									className="invisible-item-wrapper"
-									style={{
-										marginBottom: '10px',
-									}}
-								>
-									{renderItem(item.item, item.index)}
-								</div>
-							)
-						})
+						useRealHeight
+							? _wrapDataSource.map((item, index) => {
+								return (
+									<div
+										key={index}
+										className="invisible-item-wrapper"
+										style={{
+											marginBottom: '10px',
+										}}
+									>
+										{renderItem(item.item, item.index)}
+									</div>
+								)
+							})
+							: null
 					}
 				</div>
 			</div>

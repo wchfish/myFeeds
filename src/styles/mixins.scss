@@ -1,0 +1,107 @@
+/*
+* text ellipsis...
+*/
+@mixin text-overflow($w, $r:1) {
+  max-width    : $w;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+
+  @if($r>1) {
+    display           : -webkit-box;
+    -webkit-line-clamp: $r;
+    -webkit-box-orient: vertical;
+  }
+
+  @else {
+    white-space: nowrap;
+  }
+}
+
+/*
+* font
+*/
+@mixin text($s:12px, $c:#000, $w:normal, $a:left) {
+  color     : $c;
+  text-align: $a;
+
+  font: {
+    family: $base-font-family;
+    size  : $s;
+    weight: $w;
+  }
+}
+/*
+* font
+*/
+@mixin text-family($s: fontSize, $c:#000, $f: family) {
+  color     : $c;
+  font: {
+    family: $f;
+    size  : $s;
+  }
+}
+
+/*
+* center
+*/
+
+@mixin center() {
+  display        : flex;
+  flex-direction : column;
+  justify-content: center;
+  align-items    : center;
+}
+
+/*
+* center-row
+*/
+@mixin center-row() {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+}
+
+/*
+* fixed center
+*/
+
+@mixin fixed-center() {
+  position        : fixed;
+  top             : 0;
+  left            : 0;
+  width           : 100%;
+  height          : 100%;
+  z-index         : 2000;
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+  flex-direction  : column;
+  background-color: rgba(55, 55, 55, 0.6);
+}
+
+/*
+* background-image
+*/
+
+@mixin image($u, $s:100%) {
+  background     : url($u) no-repeat;
+  background-size: $s;
+}
+
+/*
+* width,height,line-height
+*/
+
+@mixin width-height($w, $h:$w) {
+  width : $w;
+  height: $h;
+}
+
+/*
+* border,border-radius
+*/
+
+@mixin border($w:1PX, $c:#000, $r:0) {
+  border       : $w solid $c;
+  border-radius: $r;
+}

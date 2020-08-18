@@ -1,0 +1,102 @@
+.feed-flow-container {
+  padding-bottom: 169px;
+  background: #F8F8F8;
+  .product-feed {
+    box-sizing: border-box;
+    // height: 1000px;
+    // overflow: hidden;
+
+    .feed-content {
+      padding: 10px 24px 0;
+      background-color: #F8F8F8;
+
+      .column-container {
+        .column {
+          &:first-child {
+            margin-right: 6px;
+          }          
+          width: calc((100% - 6px) / 2); 
+        }
+      }
+    }
+
+    .product-item {
+      padding-top: 10px;
+      .product-img {
+        margin: 0  10px 0 10px;
+        overflow: hidden;
+        border: 0;
+        width: 328px;
+        height: 328px;
+        img {
+          border-radius: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .bottom-area {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      
+      .promotion-price {
+        margin-top: 10px;
+        margin-bottom: 1px;
+        margin-right: auto;
+        height: 33px;
+        border: 1px solid #00BEAB;
+        border-radius: 18px;
+        background-color: #00BEAB;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .amount {
+          height: 33px;
+          line-height: 33px;
+          border-radius: 18px;
+          padding-left: 7px;
+          padding-right: 13px;
+          background-color: #fff;
+          font-size: 20px;
+          color: #00BEAB;
+        }
+        .tag {
+          margin-left: 5px;
+          margin-right: 12px;
+          font-size: 20px;
+          color: #fff;
+        }
+      }
+      .origin-price {
+        margin-bottom: 15px;
+        line-height: 33px;
+        font-size: 20px;
+        color: #151F4A;
+      }
+      .shopping-cart {
+        position: absolute;
+        bottom: 19px;
+        right: 29px;
+        width: 35px;
+        height: 35px;
+        background-size: cover;
+      }
+    }
+  }
+
+  .no-more-wrapper {
+    margin-top: 103px;
+    // height: 80px;
+    display: flex;
+    justify-content: center;
+
+    .no-more-img {
+      width: 222px;
+      height: 80px;
+      background-size: cover;
+    }
+  }
+}
