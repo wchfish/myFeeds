@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 
 import FeedFlow from '../src/components/FeedFlow'
 
+import '../src/styles/normalize.scss';
+import '../src/utils/rem.js';
+
 const APP = ()=>{
     return(
         <div>

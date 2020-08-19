@@ -35,7 +35,8 @@ module.exports = {
                         options: {    
                             plugins: (loader) => [
                                 require('postcss-import')({root: loader.resourcePath}),
-                                require('autoprefixer')() //CSS浏览器兼容
+                                require('autoprefixer')(), //CSS浏览器兼容
+                                require('postcss-pxtorem')({ rootValue: 16, propList: ['*'], selectorBlackList: [] }),
                             ]
                         }
                     },
