@@ -1,7 +1,10 @@
-const name = "myFeeds"
-const version = '0.0.1'
-import Message from './components/Message'
+const name = "FeedFlow"
+const version = '1.0.0'
+import FeedFlow from './components/FeedFlow'
 import ReactDom from 'react-dom'
+
+import '../src/styles/normalize.scss';
+import '../src/utils/rem.js';
 
 const getVersion = () => {
     return version
@@ -12,25 +15,24 @@ const sniff = {
     version,
 }
 
-const MyFeed = {
+const Feeds = {
     getVersion,
     sniff,
-    Message
+    FeedFlow,
 }
 
-MyFeed.init = (options) => {
-    const { container, title, content } = options
+Feeds.init = (options) => {
     // 配置项处理
     if (!container) {
-        throw(new Error('init 方法的参数是一个对象，对象必须包含container做键值！！！'))
+        throw (new Error('init 方法的参数是一个对象，对象必须包含container做键值！！！'))
     }
     ReactDom.render(
-        <Message title={title} content={content} />,
+        <FeedFlow
+            {...options}
+        />,
         options.container,
-        () => {
-            console.log('===================== feed render ====================')
-        }
+        () => { }
     )
 }
 
-export default MyFeed
+export default Feeds

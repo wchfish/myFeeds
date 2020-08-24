@@ -10,7 +10,10 @@ const APP = ()=>{
     return(
         <div>
             <h2>信息流示例</h2>
-            <FeedFlow />
+            <FeedFlow 
+                businessId={1000001049768077}
+                appid={'newChannel'}
+            />
         </div>
     )
 }

@@ -56,7 +56,7 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, '../example/'),
         compress: true,
-        host: '127.0.0.1',
+        host: 'v.jd.com',
         port: '8811',
         open: true,
         hot: true

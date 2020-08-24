@@ -126,49 +126,6 @@ const Feed = props => {
 		[feedRender]
 	)
 
-	/**
-	 * 基于浏览器自带的滚动事件处理
-	 */
-	/* const [hasMore, setHasMore] = useState(true)
-	useEffect(() => {
-		if (
-			useLoadMore
-			&& onLoad
-			&& wrapperRef.current
-			&& contentRef.current
-		) {
-			// 执行加载更多时，容器距离底部的高度
-			let loadHeight = 50
-			let wrapperHeight = wrapperRef.current.getBoundingClientRect().height
-			let contentHeight = contentRef.current.getBoundingClientRect().height
-			let isLoading = false
-
-			function onscroll(e) {
-				let scrollTop = e.target.scrollTop
-				let bottomHeight = contentHeight - scrollTop - wrapperHeight
-
-				if (
-					hasMore
-					&& !isLoading
-					&& bottomHeight <= loadHeight
-				) {
-					isLoading = true
-
-					// 执行加载的方法
-					onLoad((_hasMore = true) => {
-						isLoading = false
-						setHasMore(_hasMore)
-					})
-				}
-			}
-
-			wrapperRef.current.addEventListener('scroll', onscroll)
-			return () => {
-				wrapperRef.current.removeEventListener('scroll', onscroll)
-			}
-		}
-	}) */
-
 	return (
 		<div className={wrapperClass} ref={wrapperRef}>
 			{/* 隐藏view */}
