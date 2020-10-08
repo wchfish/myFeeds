@@ -11,7 +11,7 @@ const APP = ()=>{
         <div>
             <h2>信息流示例</h2>
             <FeedFlow 
-                businessId={1000001049768077}
+                businessId={1000001205142150}
                 appid={'newChannel'}
             />
         </div>

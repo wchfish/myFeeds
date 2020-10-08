@@ -9,9 +9,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { requestFeedMock, requestFeed } from '../../api'
+import { requestFeed } from '../../api'
 import Feed from '../Feed'
 import ProductItem from '../ProductItem'
+import NewChannelCardOneColumn from '../Cards/NewChannel/oneColumn'
 
 import './index.scss'
 
@@ -22,7 +23,7 @@ const FeedFlow = (props) => {
   const {
     appid,
     businessId,
-    layoutType,
+    // layoutType,
     sign,
     firstFeed,
     firstFeedSkuId,
@@ -41,6 +42,7 @@ const FeedFlow = (props) => {
   const [productList, setProductList] = useState([])
   const [mark, setMark] = useState('')
   const [pageNum, setPageNum] = useState(0)
+  const [layoutType, setLayoutType] = useState(2)
 
   // 构造dataSource
   const dataSource = productList.map(item => ({
@@ -49,68 +51,107 @@ const FeedFlow = (props) => {
     key: item.index,
   }))
 
+  // 特定业务场景对应的信息流元素渲染方式
+  const businessToCardMap = {
+    1000001205142150: defaultRenderItem,
+  }
+
   function defaultRenderItem(item) {
     const {
       feedId,
       feedType,
       feedDataDetail,
     } = item
-    // 根据feedType，区分渲染方式
-    if (feedType || true) {
-      const {
-        skuId,
-        title,
-        imageUrl,
-        flash,
-        price,
-        op,
-        pp,
-      } = feedDataDetail
-      const data = {
-        skuId,
-        imgUrl: `https:${imgPrefix}${imageUrl}`,
-        productName: title,
-      }
-      const currency = '￥'
-      return (
-        <div
-          onClick={() => {
-            jumpHref.goProductDetail(skuId)
-          }}
-        >
-          <ProductItem
-            item={data}
-            lineType="two"
+    const {
+      skuId,
+      title,
+      imageUrl,
+      flash,
+      price,
+      op,
+      pp,
+    } = feedDataDetail
+    const currency = '￥'
+
+    if (layoutType === 1) {
+      // 根据feedType，区分渲染方式
+      if (feedType == '0') {
+        const {
+          skuId,
+          title,
+          imageUrl,
+          flash,
+          price,
+          op,
+          pp,
+        } = feedDataDetail
+        return (
+          <div
+            onClick={() => {
+              jumpHref.goProductDetail(skuId)
+            }}
           >
-            <div className="bottom-area">
-              {
-                price ? (
-                  <div className="promotion-price">
-                    <div className="amount">
-                      {currency}
-                      {price}
-                    </div>
-                    {/* <div className="tag">{productTag}</div> */}
-                  </div>
-                )
-                  : null
-              }
-              {
-                op
-                  ? (
-                    <div className="origin-price">
-                      {currency}
-                      {op}
+            <NewChannelCardOneColumn
+              skuId={skuId}
+              imageUrl={`https:${imgPrefix}${imageUrl}`}
+              title={title}
+              price={price}
+              op={op}
+              currency={currency}
+            />
+          </div>
+        )
+      } else {
+        return null
+      }
+    } else if (layoutType === 2) {
+      // 根据feedType，区分渲染方式
+      if (feedType == '0') {
+        
+        const data = {
+          skuId,
+          imgUrl: `https:${imgPrefix}${imageUrl}`,
+          productName: title,
+        }
+        return (
+          <div
+            onClick={() => {
+              jumpHref.goProductDetail(skuId)
+            }}
+          >
+            <ProductItem
+              item={data}
+              lineType="two"
+            >
+              <div className="bottom-area">
+                {
+                  price ? (
+                    <div className="promotion-price">
+                      <div className="amount">
+                        {currency}
+                        {price}
+                      </div>
                     </div>
                   )
-                  : null
-              }
-            </div>
-          </ProductItem>
-        </div>
-      )
-    } else {
-      return null
+                    : null
+                }
+                {
+                  op
+                    ? (
+                      <div className="origin-price">
+                        {currency}
+                        {op}
+                      </div>
+                    )
+                    : null
+                }
+              </div>
+            </ProductItem>
+          </div>
+        )
+      } else {
+        return null
+      }
     }
   }
 
@@ -130,7 +171,7 @@ const FeedFlow = (props) => {
     if (!appid || !businessId) return
     const params = {
       businessId,
-      layoutType,
+      // layoutType,
       sign,
       pageSize,
       pageNum: nextPageNum,
@@ -140,7 +181,7 @@ const FeedFlow = (props) => {
       .then(res => {
         const { code, bizContent } = res
         if (code === 0 && bizContent) {
-          const { feedData, mark: newMark, hasNext } = bizContent
+          const { feedData, mark: newMark, hasNext, layoutType = 2 } = bizContent
           const curProductList = [].concat(productList).concat(feedData)
           let newHasMore
           if (hasNext) {
@@ -152,72 +193,16 @@ const FeedFlow = (props) => {
           setProductList(curProductList)
           setMark(newMark)
           setPageNum(pageNum + 1)
+          // setLayoutType(1)
+          setLayoutType(layoutType)
         } else {
           // 获取商品失败的异常处理
-
         }
       })
       .catch(err => {
         console.log(err)
       })
-
-    // return requestFeedMock(params)
-    //   .then(res => {
-    //     const { layoutType, feeds } = res
-    //     if (feeds && feeds.length > 0) {
-    //       const curProductList = [].concat(productList).concat(feeds)
-    //       let newHasMore
-    //       if (feeds.length < pageSize) {
-    //         newHasMore = false
-    //       } else {
-    //         newHasMore = true
-    //       }
-    //       setHasMore(newHasMore)
-    //       setProductList(curProductList)
-    //       // setMark(newMark)
-    //     } else {
-    //       // 获取商品失败的异常处理
-
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
   }
-
-  // 获取商品
-  // function getProducts(nextMark) {
-  //   const params = {
-  //     mark: nextMark,
-  //     pageSize,
-  //   }
-  //   return requestFeed(params)
-  //     .then(res => {
-  //       // res = productMockData
-  //       console.log(res)
-  //       const { data, success } = res
-  //       if (success && data) {
-  //         const { productList: newProductList = [], hasNext: newHasNext, mark: newMark } = data
-  //         const curProductList = [].concat(productList).concat(newProductList)
-  //         let newHasMore
-  //         if (newHasNext && curProductList.length < maxProductCount) {
-  //           newHasMore = true
-  //         } else {
-  //           newHasMore = false
-  //         }
-  //         setHasMore(newHasMore)
-  //         setProductList(curProductList)
-  //         setHasNext(newHasNext)
-  //         setMark(newMark)
-  //       } else {
-  //         // 获取商品失败的异常处理
-
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
 
   // 初始数据加载
   useEffect(
@@ -281,11 +266,12 @@ const FeedFlow = (props) => {
           <Feed
             extraClass="product-feed"
             contentExtraClass="feed-content"
+            layoutType={layoutType}
             dataSource={dataSource}
             // useRealHeight
             useRealHeight={useRealHeight}
             setItemHeight={setItemHeight || defaultSetItemHeight}
-            renderItem={renderItem || defaultRenderItem}
+            renderItem={renderItem || businessToCardMap[businessId] || defaultRenderItem}
             useLoadMore
             onLoad={(stopLoading) => {
               setTimeout(() => {
@@ -314,7 +300,7 @@ FeedFlow.PropTypes = {
   // 业务场景id
   businessId: PropTypes.string.isRequired,
   // 布局类型
-  layoutType: PropTypes.string,
+  // layoutType: PropTypes.string,
   // 签名
   sign: PropTypes.string,
   // 首焦模块

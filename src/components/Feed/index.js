@@ -14,6 +14,7 @@ const Feed = props => {
 	let {
 		extraClass,
 		contentExtraClass,
+		layoutType,
 		dataSource,
 		useRealHeight,
 		setItemHeight,
@@ -49,7 +50,7 @@ const Feed = props => {
 	// 列的高度
 	// const [columnsHeight, setColumnsHeight] = useState([])
 
-	// foo
+	// 是否展示feed流
 	const [feedShow, setFeedShow] = useState(false)
 
 	// wrapperDataSource
@@ -168,46 +169,76 @@ const Feed = props => {
 			{
 				feedShow ?
 					<div className={contentClass} ref={contentRef}>
-						<div className="column-container">
-							<div className="column column-0">
-								{
-									wrapperDataSource
-										.filter(item => item.column === 0)
-										.map((item, index) => {
-											return (
-												<div
-													key={item.key}
-													className="item-wrapper"
-													style={{
-														marginBottom: '10px',
-													}}
-												>
-													{renderItem(item.item, item.index)}
-												</div>
-											)
-										})
-								}
-							</div>
-							<div className="column column-1">
-								{
-									wrapperDataSource
-										.filter(item => item.column === 1)
-										.map(item => {
-											return (
-												<div
-													key={item.key}
-													className="item-wrapper"
-													style={{
-														marginBottom: '10px',
-													}}
-												>
-													{renderItem(item.item, item.index)}
-												</div>
-											)
-										})
-								}
-							</div>
-						</div>
+						{
+							layoutType === 1
+								? (
+									<div className="column-container column-container-single">
+										{
+											wrapperDataSource
+												.map((item, index) => {
+													return (
+														<div
+															key={item.key}
+															className="item-wrapper"
+															style={{
+																marginBottom: '10px',
+															}}
+														>
+															{renderItem(item.item, item.index)}
+														</div>
+													)
+												})
+										}
+									</div>
+								)
+								: null
+						}
+						{
+							layoutType === 2
+								? (
+									<div className="column-container column-container-multi">
+										<div className="column column-0">
+											{
+												wrapperDataSource
+													.filter(item => item.column === 0)
+													.map((item, index) => {
+														return (
+															<div
+																key={item.key}
+																className="item-wrapper"
+																style={{
+																	marginBottom: '10px',
+																}}
+															>
+																{renderItem(item.item, item.index)}
+															</div>
+														)
+													})
+											}
+										</div>
+										<div className="column column-1">
+											{
+												wrapperDataSource
+													.filter(item => item.column === 1)
+													.map(item => {
+														return (
+															<div
+																key={item.key}
+																className="item-wrapper"
+																style={{
+																	marginBottom: '10px',
+																}}
+															>
+																{renderItem(item.item, item.index)}
+															</div>
+														)
+													})
+											}
+										</div>
+									</div>
+								)
+								: null
+						}
 						{/* 需要完善 */}
 						{/* 加载更多 */}
 						{/* {
@@ -232,6 +263,8 @@ Feed.propTypes = {
 	extraClass: PropTypes.string,
 	// 内容容器的附加样式
 	contentExtraClass: PropTypes.string,
+	// 布局类型
+	layoutType: PropTypes.oneOf([1, 2]),
 	// feed流数据[{ item, key },...],
 	// 每个数据项必须包含item和key两个字段，其中item作为参数传入到renderItem方法中。
 	dataSource: PropTypes.array.isRequired,
@@ -254,6 +287,7 @@ Feed.propTypes = {
 Feed.defaultProps = {
 	extraClass: '',
 	contentExtraClass: '',
+	layoutType: 2,
 	dataSource: [],
 	useRealHeight: false,
 	setItemHeight: null,

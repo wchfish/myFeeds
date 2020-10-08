@@ -1,0 +1,54 @@
+@import "../../../../styles/mixins.scss";
+
+.feed-card.new-channel-card {
+  width: 100%;
+  height: 280px;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+
+  .img-wrapper {
+    width: 248px;
+    height: 248px;
+    border-radius: 8px;
+    overflow: hidden;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .main-info {
+    flex: 1;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+      margin-top: 20px;
+      line-height: 40px;
+      font-size: 28px;
+      color: rgba(46, 45, 45, 1);
+      @include text-overflow(100%, 2);
+    }
+
+    .price {
+      margin-top: 30px;
+      line-height: 36px;
+      font-size: 36px;
+      color: rgba(163, 59, 0, 1);
+    }
+    .op {
+      margin-top: 30px;
+      line-height: 36px;
+      font-size: 20px;
+      color: rgba(153, 153, 153, 1);
+    }
+  }
+}

@@ -23,7 +23,7 @@ const Feeds = {
 
 Feeds.init = (options) => {
     // 配置项处理
-    if (!container) {
+    if (!options.container) {
         throw (new Error('init 方法的参数是一个对象，对象必须包含container做键值！！！'))
     }
     ReactDom.render(
